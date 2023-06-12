@@ -1,0 +1,23 @@
+.v-icon {
+  display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  &-check-mark {
+    height: 9px;
+    width: 13px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxNiAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTQuNTMxNSAxLjgwOTM3TDUuNjMzNDEgMTEuMjM3TDEuMzQ4MTQgNy4xOTIzNyIgc3Ryb2tlPSIjRjRGNkY5IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==);
+
+    &:before,
+    &:after {
+      content: none;
+    }
+  }
+
+  &-logo {
+    width: 48px;
+    height: 48px;
+    background-image: url("#{$path_img}/svg/logo.svg");
+  }
+}

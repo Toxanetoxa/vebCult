@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.v-content {
+  max-width: 1216px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 45px 0 0;
+}
+
+.v-link {
+  color: $text-color-black;
+  text-decoration: none;
+  cursor: pointer;
+  transition: $transition3;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $text-color-gray;
+  }
+}
+
+.v-loading {
+  margin: 12px auto;
+}

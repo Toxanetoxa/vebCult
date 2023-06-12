@@ -1,0 +1,26 @@
+.v-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 118px;
+  height: 48px;
+  border-color: transparent;
+  padding: 0;
+  margin: 0;
+  background-color: $button-bg-color-active;
+  color: $text-color-white;
+  transition: $transition3;
+  font-weight: 700;
+  font-size: 14px;
+  gap: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $button-bg-color-hover;
+  }
+
+  &:disabled {
+    background-color: $button-bg-color-disable;
+  }
+}
