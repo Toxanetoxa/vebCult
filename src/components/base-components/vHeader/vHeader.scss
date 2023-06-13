@@ -27,5 +27,41 @@
       align-items: center;
       gap: 48px;
     }
+
+    &--search {
+      margin-left: auto;
+    }
+
+    &--cart {
+      display: flex;
+      height: 100%;
+      margin-left: 33px;
+      padding-right: 11px;
+
+      &-wrap {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+
+        &_count {
+          position: absolute;
+          top: 0;
+          right: -4px;
+          transform: translateX(50%);
+          display: flex;
+          width: fit-content;
+          min-width: 15px;
+          height: fit-content;
+          min-height: 15px;
+          border-radius: 50%;
+          background-color: $button-bg-color-active;
+          color: $text-color-white;
+          font-size: 12px;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
   }
 }

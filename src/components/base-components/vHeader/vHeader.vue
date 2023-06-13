@@ -28,19 +28,36 @@
       <div class="v-header-nav--search">
         <v-search />
       </div>
-      <div class="v-header-nav--cart"></div>
+      <div class="v-header-nav--cart">
+        <div class="v-header-nav--cart-wrap">
+          <i class="v-icon v-icon-cart" />
+          <span class="v-header-nav--cart-wrap_count">
+            {{ bagCount }}
+          </span>
+        </div>
+      </div>
     </div>
   </header>
 </template>
 
-<script>
-import { RouterLink } from 'vue-router'
-import VSearch from "@/components/ui-components/vSearch/vSearch.vue";
-export default {
+<script lang="ts">
+import vSearch from "@/components/ui-components/vSearch/vSearch.vue";
+import { defineComponent } from 'vue';
+import { RouterLink } from 'vue-router';
+
+// component definition
+export default defineComponent({
   name: "vHeader",
   components: {
-    VSearch,
+    vSearch,
     RouterLink,
+  },
+  props: {
+    bagCount: {
+      type: Number,
+      default: 0,
+    }
   }
-};
+  // other component options
+});
 </script>
