@@ -16,6 +16,7 @@ body {
   overflow: hidden;
   overflow-y: scroll;
   background-color: $background-main;
+  min-height: 100vh;
 }
 
 .v-content {
