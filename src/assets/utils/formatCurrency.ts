@@ -1,11 +1,22 @@
+/** сделал отдельным классом утилкой чтобы при необходимости можно было использовать везде **/
 export class formatCurrency {
-  constructor(private number: number, private currency: string) {}
+  constructor(private number: number, private currency: string) {
+    this.format();
+  }
 
   format(): string {
-    let result = this.number.toString();
+    let raw = this.number.toString();
+    let result = "";
+    let count = raw.length + 1;
 
-    while (result.length > 3) {
-      result = result.slice(0, -3) + " " + result.slice(-3);
+    while (count > 3) {
+      result = raw.slice(-3) + " " + result;
+      count -= 3;
+      raw = raw.slice(0, -3);
+    }
+
+    if (0 < count <= 3) {
+      result = raw + " " + result;
     }
 
     if (this.currency.toUpperCase() === "USD") {

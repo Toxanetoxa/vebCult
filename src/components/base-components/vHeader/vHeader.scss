@@ -10,6 +10,7 @@
   position: fixed;
   top: 0;
   background-color: $background-main;
+  z-index: 99999;
 
   &-nav {
     @include main-container;

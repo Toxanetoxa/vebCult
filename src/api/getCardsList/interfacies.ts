@@ -1,6 +1,6 @@
 // Типы данных ответов от сервера
 export interface ApiResponse {
-  data: Post[],
+  data: Data,
 }
 
 export interface Post {
@@ -13,5 +13,6 @@ export interface Post {
 }
 
 export interface Data {
-  list: Post[];
+  title: string,
+  list: Post[]
 }

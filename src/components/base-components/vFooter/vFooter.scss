@@ -5,6 +5,7 @@ footer {
   background-color: #ECEAEA;
   position: fixed;
   bottom: 0;
+  z-index: 99999;
 }
 .v-footer {
   @include main-container;
