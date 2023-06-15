@@ -7,15 +7,16 @@
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #E1E1E1;
+  position: fixed;
+  top: 0;
+  background-color: $background-main;
 
   &-nav {
-    display: flex;
+    @include main-container;
+
     flex-direction: row;
     align-items: center;
-    //justify-content: space-between;
-    max-width: 1216px;
-    width: 100%;
-    margin: 0 auto;
+
 
     &--logo {
       margin-right: 48px;

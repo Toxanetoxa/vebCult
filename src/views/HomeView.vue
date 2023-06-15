@@ -1,14 +1,18 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
+import VCardsList from "@/components/ widget-components/vCardsList/vCardsList.vue";
+
 export default defineComponent({
-  name: 'HomeView',
+  name: "HomeView",
   components: {
+    VCardsList
   }
-})
+});
 </script>
 
 <template>
-  <main>
-    1wdasdaweqw
-  </main>
+  <h1 class="v-title">Картины эпохи Возрождения</h1>
+  <suspense>
+    <v-cards-list />
+  </suspense>
 </template>

@@ -7,7 +7,7 @@
           class="v-icon v-icon-logo"
         />
       </div>
-      <div class="v-header-nav--links">
+      <nav class="v-header-nav--links">
         <RouterLink
           to="/"
           class="v-link"
@@ -24,7 +24,7 @@
         <RouterLink
           to="/"
           class="v-link">О галерее</RouterLink>
-      </div>
+      </nav>
       <div class="v-header-nav--search">
         <v-search />
       </div>
@@ -42,22 +42,38 @@
 
 <script lang="ts">
 import vSearch from "@/components/ui-components/vSearch/vSearch.vue";
-import { defineComponent } from 'vue';
 import { RouterLink } from 'vue-router';
-
-// component definition
-export default defineComponent({
-  name: "vHeader",
-  components: {
-    vSearch,
-    RouterLink,
-  },
+import {ref} from "vue";
+export default  {
+  components: { vSearch, RouterLink },
   props: {
     bagCount: {
       type: Number,
       default: 0,
     }
+  },
+  setup(props) {
+    const items = ref([1, 2, 4, 5, 6])
+
+    const handleSubmit = item => items.value.push(item)
+
+    return {
+      props,
+      handleSubmit
+    }
   }
-  // other component options
-});
+}
+
+
+// defineExpose({
+//   bagCount: defineProp({
+//     type: Number,
+//     default: 0
+//   })
+// })
+//
+// const components = {
+//   vSearch,
+//   RouterLink
+// }
 </script>
