@@ -12,7 +12,7 @@
       </div>
       <div v-if="isPrice" class="v-card--price">
         <span class="v-card--price_new">{{ currentPrice }}</span>
-        <span class="v-card--price_old">{{ oldPrice === 0 ? '' : oldPrice}}</span>
+        <span class="v-card--price_old">{{ oldPrice }}</span>
       </div>
       <div class="v-card--action">
         <span v-if="cardData.is_sales" class="v-card--action_sales">Продана на аукционе</span>
@@ -20,7 +20,10 @@
           v-else
           class="v-card--action_bye"
           @click="handleClick"
-        >Купить
+          :in-cart="isBags"
+          :is-loading="isLoading"
+        >
+          {{ cBtnText }}
         </v-button>
       </div>
     </div>
@@ -28,90 +31,132 @@
 </template>
 
 <script setup lang="ts">
-import vButton from "@/components/ui-components/vButton/vButton.vue";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { formatCurrency } from "@/assets/utils/formatCurrency";
+import { userStoreCardsList } from "@/stores/userCardsList";
+import VButton from "@/components/ui-components/vButton/vButton.vue";
+import { SetItem } from "@/api/setItem/setItem";
 
 const props = defineProps({
   item: {
     type: Object,
     required: true
-  }
+  },
+  btnText: {
+    type: String,
+    default: 'Купить'
+  },
+  btnInCartText: {
+    type: String,
+    default: 'В корзине'
+  },
 });
 
 const cardData = ref(props.item);
 
 const isPrice = computed(() => {
-  return !!cardData.value.price
-})
+  return !!cardData.value.price;
+});
 
 const isPriceCurrent = computed(() => {
-  if(isPrice.value) {
-    return !!cardData.value.price.current
+  if (isPrice.value) {
+    return !!cardData.value.price.current;
   }
-  return false
-})
+  return false;
+});
 
 const isPriceOld = computed(() => {
-  if(isPrice.value) {
-    return !!cardData.value.price.old_value
+  if (isPrice.value) {
+    return !!cardData.value.price.old_value;
   }
-  return false
-})
+  return false;
+});
 
 const isCurrency = computed(() => {
-  if(isPrice.value) {
-    return !!cardData.value.price.currency
+  if (isPrice.value) {
+    return !!cardData.value.price.currency;
   }
-  return false
-})
+  return false;
+});
 
 const currentPrice = computed(() => {
-  if(isPriceCurrent.value && isCurrency.value) {
+  if (isPriceCurrent.value && isCurrency.value) {
     return new formatCurrency(
       cardData.value.price.current,
       cardData.value.price.currency
-    ).format()
+    ).format();
   }
-  return 0
-})
+  return 0;
+});
 
 const oldPrice = computed(() => {
-  if(isPriceOld.value && isCurrency.value) {
-    return new formatCurrency(
+  if (isPriceOld.value && isCurrency.value) {
+    let value = new formatCurrency(
       cardData.value.price.old_value,
       cardData.value.price.currency
     ).format()
+    return  value == 0 ? '' : value
   }
-  return ''
-})
+  return "";
+});
 
 const cardImage = computed(() => {
-  if (cardData.value.img && cardData.value.img.length){
-    return cardData.value.img
+  if (cardData.value.img && cardData.value.img.length) {
+    return cardData.value.img;
   } else {
-    return  'https://www.elegantthemes.com/blog/wp-content/uploads/2020/02/000-404.png'
+    return "https://www.elegantthemes.com/blog/wp-content/uploads/2020/02/000-404.png";
   }
-})
+});
 
 const imageDesc = computed(() => {
-  if (cardData.value.img && cardData.value.img.length){
-    return cardData.value.name
+  if (cardData.value.img && cardData.value.img.length) {
+    return cardData.value.name;
   } else {
-    return 'Картинка, ксожалению, не найдена'
+    return "Картинка, ксожалению, не найдена";
   }
-})
+});
 
 const isSales = computed(() => {
-  return cardData.value.is_sales ?? false
-})
+  return cardData.value.is_sales ?? false;
+});
 
 const classesCard = computed(() => {
-  return isSales.value ? 'v-card-sales' : ''
-})
+  return isSales.value ? "v-card-sales" : "";
+});
 
-const emit = defineEmits(['click:clickBuy'])
+const emit = defineEmits(["click:clickBuy"]);
 const handleClick = () => {
-  emit('click:clickBuy', cardData.value)
+  emit("click:clickBuy", cardData);
+  setItem()
+};
+
+const userStoreList = userStoreCardsList()
+
+const isBags = ref(false)
+
+function checkIsBags (){
+  isBags.value = userStoreList.list.some(el => el.id === cardData.value.id)
+}
+
+watch(
+  () => userStoreList.list.length,
+  (newValue) => {
+    checkIsBags()
+  }
+);
+
+const cBtnText = computed(() => {
+  return isBags.value ? props.btnInCartText : props.btnText
+})
+const isLoading = ref(false)
+async function setItem() {
+  if(!isSales.value && !isBags.value) {
+    isLoading.value = true
+    const setPost = new SetItem()
+    await setPost.getData()
+    setTimeout(() => {
+      isLoading.value = false
+    }, 300)
+  }
 }
 </script>

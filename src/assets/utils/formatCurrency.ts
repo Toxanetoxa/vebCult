@@ -15,7 +15,7 @@ export class formatCurrency {
       raw = raw.slice(0, -3);
     }
 
-    if (0 < count <= 3) {
+    if (0 < count && count <= 3) {
       result = raw + " " + result;
     }
 

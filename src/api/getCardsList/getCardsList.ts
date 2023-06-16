@@ -1,32 +1,31 @@
 import posts from "./mock/data.json";
-import { ApiResponse, Data } from "./interfacies";
-import { ApiError } from "@/api/global-interfacies";
-
+import { ApiError, ApiResponse, Data, HttpResponse } from "./interfacies";
 // @ts-ignore
-const MOCK_DATA = import.meta.env.VITE_APP_MOCK_DATA === "true";
+const MOCK_DATA: Boolean = import.meta.env.MOCK_DATA ?? true;
+// @ts-ignore
+const API_URL:RequestInfo | URL = import.meta.env.API_URL;
 
 // Функции для выполнения запросов
 // @ts-ignore
-const getItems = async (): Promise<ApiResponse<Data> | ApiError> => {
-  if (MOCK_DATA) {
-    return posts;
-  } else {
-    const response = await fetch(`/items`);
-    const data = await response.json();
-    return { data };
-  }
-};
 
-export class getCardsList {
-  data: Data = { list: [] };
 
-  async loadPosts() {
-    await getItems()
-      .then(result => {
-        this.data = result.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+export class GetCardsList {
+  data!: Data
+  constructor() {
+    this.data = {} as Data
   }
+  async getPosts () {
+    if (MOCK_DATA) {
+      this.data = posts.data
+    } else {
+      await fetch(API_URL)
+        .then(result => result.json())
+        .then(data => {
+          this.data = data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
 }

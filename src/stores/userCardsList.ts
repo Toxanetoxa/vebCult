@@ -7,28 +7,31 @@ export const userStoreCardsList = defineStore({
     list: [] as Post[]
   }),
   getters: {
-    itemLength: (state) => {
+    itemsLength: (state) => {
       return state.list.length;
     }
   },
   actions: {
-    getItem(context, item) {
-      // добавление объекта в массив
-      if (context.state.list.find(el => el.id === item.id)) {
-        context.commit("addItem", item);
+    getItem(item:Post) {
+      if (!this.list.find( (el: Post) => el.id === item.id)) {
+        this.pushItem(item)
       } else {
-        context.commit("removeItem", item);
+        this.removeItem(item)
       }
-    }
-  },
-  mutations: {
-    addItem(state, item: Post) {
-      state.list.push(item);
     },
-    removeItem(state, item: Post) {
-      const index = state.list.findIndex(el => el.id === item.id);
-      if (index !== -1) {
-        state.list.splice(index, 1);
+    pushItem(item:Post) {
+      this.list.push(item)
+    },
+    removeItem(item:Post){
+      this.list = this.list.filter(el => el !== item)
+    },
+    getAllCards(){
+      const itemsList = localStorage.getItem('usersItems')
+      if (itemsList) {
+        this.list = JSON.parse(itemsList)
+      } else {
+        this.list = []
+        console.log('Users items not found in local storage');
       }
     }
   },

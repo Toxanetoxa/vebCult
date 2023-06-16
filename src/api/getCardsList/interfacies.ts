@@ -1,6 +1,15 @@
 // Типы данных ответов от сервера
-export interface ApiResponse {
+export interface ApiResponse<T> {
   data: Data,
+}
+
+export interface HttpResponse {
+  data: ApiResponse<Data> | ApiError
+}
+
+export interface ApiError {
+  message: string;
+  data:  ApiResponse<Data>
 }
 
 export interface Post {
@@ -13,6 +22,7 @@ export interface Post {
 }
 
 export interface Data {
-  title: string,
+  status: Boolean,
+  title: String,
   list: Post[]
 }

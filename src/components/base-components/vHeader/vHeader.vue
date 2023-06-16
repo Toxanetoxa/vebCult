@@ -40,40 +40,19 @@
   </header>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import vSearch from "@/components/ui-components/vSearch/vSearch.vue";
 import { RouterLink } from 'vue-router';
-import {ref} from "vue";
-export default  {
-  components: { vSearch, RouterLink },
-  props: {
-    bagCount: {
-      type: Number,
-      default: 0,
-    }
-  },
-  setup(props) {
-    const items = ref([1, 2, 4, 5, 6])
+import { ref, watch } from "vue";
+import { userStoreCardsList } from "@/stores/userCardsList";
 
-    const handleSubmit = item => items.value.push(item)
+const store = userStoreCardsList()
+const bagCount = ref(store.list.length)
 
-    return {
-      props,
-      handleSubmit
-    }
+watch(
+  () => store.list.length,
+  (newValue) => {
+    bagCount.value = newValue;
   }
-}
-
-
-// defineExpose({
-//   bagCount: defineProp({
-//     type: Number,
-//     default: 0
-//   })
-// })
-//
-// const components = {
-//   vSearch,
-//   RouterLink
-// }
+);
 </script>

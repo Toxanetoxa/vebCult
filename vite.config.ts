@@ -1,26 +1,24 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath } from "node:url";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-// import vitePluginEnv from 'vite-plugin-env';
-import { config } from 'dotenv';
-config();
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
+import EnvironmentPlugin from "vite-plugin-environment";
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    assetsDir: "assets"
+  },
   plugins: [
     vue(),
     vueJsx(),
-    // vitePluginEnv(['MOCK_DATA']),
-    // config()
+    EnvironmentPlugin(["BASE_URL","MOCK_DATA", "API_URL"])
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  },
-  build: {
-    assetsDir: 'assets',
-  },
-})
+  }
+});

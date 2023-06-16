@@ -3,7 +3,7 @@
     <div class="v-footer v-footer-content">
       <div class="v-footer--logo">
         <RouterLink
-          to=""
+          to="/"
           class="v-icon v-icon-footer-logo"
         />
       </div>
@@ -25,22 +25,23 @@
           to="/">Галерея</RouterLink>
       </nav>
       <div class="v-footer--contact-us">
-        <span class="v-footer--contact-us_phone">+7 (495) 999-99-99</span>
+        <a
+          href="tel:+7 (495) 999-99-99"
+          class="v-footer--contact-us_phone"
+        >+7 (495) 999-99-99</a>
         <span class="v-footer--contact-us_geo">
         <i class="v-icon v-icon-geo" />
-        <span>г. Воронеж, ул. Никитина, 119А</span>
+        <a
+          href="https://goo.gl/maps/KHEcscxjd1SakKe4A"
+          target="_blank"
+        >
+          <span>г. Воронеж, ул. Никитина, 119А</span>
+        </a>
       </span>
       </div>
     </div>
   </footer>
 </template>
 
-<script>
-export default {
-  name: "vFooter"
-};
+<script lang="ts" setup>
 </script>
-
-<style scoped>
-
-</style>

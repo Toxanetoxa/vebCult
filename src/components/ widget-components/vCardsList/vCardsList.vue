@@ -11,9 +11,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import VCard from "@/components/ widget-components/vCard/vCard.vue";
 import { userStoreCardsList } from "@/stores/userCardsList";
+import { Data } from '@/api/getCardsList/interfacies'
 
 const props = defineProps({
   cardsList: {
@@ -24,8 +25,22 @@ const props = defineProps({
 
 const list = ref(props.cardsList)
 
+const isLoading = ref(false)
+
 const userStoreList = userStoreCardsList()
-function setEmit(event) {
-  userStoreList.getItem(event)
+
+const usersItems = userStoreList.list
+
+onMounted(()=> {
+  userStoreList.getAllCards()
+})
+function saveInStorage() {
+  localStorage.setItem('usersItems', JSON.stringify(usersItems))
+}
+function setEmit(event:Data) {
+  isLoading.value = true
+  userStoreList.getItem(event.value)
+  saveInStorage()
+  isLoading.value = false
 }
 </script>

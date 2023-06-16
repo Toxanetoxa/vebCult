@@ -2,46 +2,39 @@
   <div class="v-input">
     <div class="v-input__icon"></div>
     <div class="v-input__wrap">
-      <input :value="value" @input="updateValue" :placeholder="placeholder"/>
+      <input :value="value" @input="updateValue" :placeholder="placeholder" />
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+<script lang="ts" setup>
+import { ref, watch } from "vue";
 
-export default defineComponent({
-  name: 'vInput',
-  props: {
+const props = defineProps({
     modelValue: {
       type: String,
-      default: '',
+      default: "",
       required: true
     },
     placeholder: {
       type: String,
-      default: ''
-    },
-  },
-  setup(props, { emit }) {
-    const value = ref(props.modelValue)
-
-    const updateValue = (event: InputEvent) => {
-      value.value = (event.target as HTMLInputElement).value
-      emit('update:modelValue', value.value)
+      default: ""
     }
+  })
 
-    watch(
-      () => props.modelValue,
-      (newValue) => {
-        value.value = newValue
-      }
-    )
+const value = ref(props.modelValue);
 
-    return {
-      value,
-      updateValue
-    }
+const emit = defineEmits(['update:modelValue'])
+const updateValue = (event: InputEvent) => {
+  value.value = (event.target as HTMLInputElement).value;
+  emit("update:modelValue", value.value);
+};
+
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    value.value = newValue;
   }
-})
+);
+
 </script>
