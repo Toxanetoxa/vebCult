@@ -6,13 +6,6 @@ npm install
 ```sh
 npm run dev
 ```
-### Type-Check, Compile and Minify for Production
-```sh
-npm run build
-```
-```sh
-npm run lint
-```
 -Использовал Vue3, TS
 -Желательно использовать препроцессор sass/scss +
 -Верстка может быть выполнена по бэм неймингу +
