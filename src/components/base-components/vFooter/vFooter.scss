@@ -25,6 +25,9 @@ footer {
     justify-content: space-between;
     align-items: center;
     gap: 48px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
   }
 
   &--contact-us {
@@ -33,6 +36,9 @@ footer {
     gap: 41px;
     align-items: center;
     margin-left: auto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
 
     &_geo {
       display: flex;
