@@ -1,8 +1,5 @@
 // @ts-ignore
-const MOCK_DATA: Boolean = import.meta.env.MOCK_DATA ?? true;
-//@ts-ignore
-const API_URL: URL = import.meta.env.API_URL ?? "";
-
+const MOCK_DATA: Boolean = import.meta.env.MOCK_DATA ?? false;
 export class SetItem {
   dateResponse: string = "";
 
@@ -10,10 +7,10 @@ export class SetItem {
     if (MOCK_DATA) {
       alert("success");
     } else {
-      const response = await fetch(API_URL);
-      if (!response.ok) {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+      if (!response) {
         alert("Error");
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response}`);
       }
       const data = await response.json();
       alert('success');

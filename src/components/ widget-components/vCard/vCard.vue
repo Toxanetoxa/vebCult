@@ -44,12 +44,12 @@ const props = defineProps({
   },
   btnText: {
     type: String,
-    default: 'Купить'
+    default: "Купить"
   },
   btnInCartText: {
     type: String,
-    default: 'В корзине'
-  },
+    default: "В корзине"
+  }
 });
 
 const cardData = ref(props.item);
@@ -94,8 +94,8 @@ const oldPrice = computed(() => {
     let value = new formatCurrency(
       cardData.value.price.old_value,
       cardData.value.price.currency
-    ).format()
-    return  value == 0 ? '' : value
+    ).format();
+    return value == 0 ? "" : value;
   }
   return "";
 });
@@ -127,36 +127,33 @@ const classesCard = computed(() => {
 const emit = defineEmits(["click:clickBuy"]);
 const handleClick = () => {
   emit("click:clickBuy", cardData);
-  setItem()
+  setItem();
 };
 
-const userStoreList = userStoreCardsList()
+const userStoreList = userStoreCardsList();
 
-const isBags = ref(false)
+const isBags = ref(false);
 
-function checkIsBags (){
-  isBags.value = userStoreList.list.some(el => el.id === cardData.value.id)
+function checkIsBags() {
+  isBags.value = userStoreList.list.some(el => el.id === cardData.value.id);
 }
 
 watch(
   () => userStoreList.list.length,
   (newValue) => {
-    checkIsBags()
+    checkIsBags();
   }
 );
 
 const cBtnText = computed(() => {
-  return isBags.value ? props.btnInCartText : props.btnText
-})
-const isLoading = ref(false)
+  return isBags.value ? props.btnInCartText : props.btnText;
+});
+const isLoading = ref(false);
+
 async function setItem() {
-  if(!isSales.value && !isBags.value) {
-    isLoading.value = true
-    const setPost = new SetItem()
-    await setPost.getData()
-    setTimeout(() => {
-      isLoading.value = false
-    }, 300)
-  }
+  isLoading.value = true;
+  const setPost = new SetItem();
+  await setPost.getData();
+  isLoading.value = false;
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <v-header :bag-count="0" />
+  <v-header />
   <main class="v-content">
     <suspense>
       <RouterView />

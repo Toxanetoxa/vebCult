@@ -13,8 +13,19 @@
 <script setup lang="ts">
 import VInput from "@/components/ui-components/vInput/vInput.vue";
 import VButton from "@/components/ui-components/vButton/vButton.vue";
-import { ref } from 'vue';
+import { ref, watch } from "vue";
 
 const value = ref('');
+const emit = defineEmits(['update:value'])
+const updateValue = (value:String) => {
+  emit("update:value", value);
+};
 
+watch(
+  () => value.value,
+  (newValue) => {
+    value.value = newValue;
+    updateValue(value.value)
+  }
+);
 </script>

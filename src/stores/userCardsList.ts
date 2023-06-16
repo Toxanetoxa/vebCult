@@ -6,11 +6,6 @@ export const userStoreCardsList = defineStore({
   state: () => ({
     list: [] as Post[]
   }),
-  getters: {
-    itemsLength: (state) => {
-      return state.list.length;
-    }
-  },
   actions: {
     getItem(item:Post) {
       if (!this.list.find( (el: Post) => el.id === item.id)) {
