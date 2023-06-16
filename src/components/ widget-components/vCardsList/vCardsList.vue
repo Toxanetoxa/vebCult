@@ -1,6 +1,6 @@
 <template>
   <div class="v-cards-list">
-    <template v-for="card in cardsList" :key="card.id">
+    <template v-for="card in list" :key="card.id">
         <v-card
           v-if="Object.keys(card).length"
           :item="card"
@@ -27,22 +27,12 @@ const list = computed(()=>{
   return props.cardsList?.values()
 })
 
-const isLoading = ref(false)
-
 const userStoreList = userStoreCardsList()
-
-const usersItems = userStoreList.list
 
 onMounted(()=> {
   userStoreList.getAllCards()
 })
-function saveInStorage() {
-  localStorage.setItem('usersItems', JSON.stringify(usersItems))
-}
 function setEmit(event:Data) {
-  isLoading.value = true
   userStoreList.getItem(event.value)
-  saveInStorage()
-  isLoading.value = false
 }
 </script>

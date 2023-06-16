@@ -16,18 +16,29 @@ export const userStoreCardsList = defineStore({
     },
     pushItem(item:Post) {
       this.list.push(item)
+      this.refreshStorage()
     },
     removeItem(item:Post){
       this.list = this.list.filter(el => el !== item)
+      this.refreshStorage()
     },
     getAllCards(){
-      const itemsList = localStorage.getItem('usersItems')
+      const itemsList = localStorage.getItem('userItems')
       if (itemsList) {
-        this.list = JSON.parse(itemsList)
+        this.list = [...(JSON.parse(itemsList))]
+        this.refreshStorage()
       } else {
         this.list = []
-        console.log('Users items not found in local storage');
+        this.refreshStorage()
       }
+    },
+    refreshStorage() {
+      if(this.list.length === 1) {
+        localStorage.removeItem('userItems')
+        localStorage.setItem('userItems', JSON.stringify([ ...this.list]))
+      }
+      localStorage.removeItem('userItems')
+      localStorage.setItem('userItems', JSON.stringify(this.list))
     }
   },
 });

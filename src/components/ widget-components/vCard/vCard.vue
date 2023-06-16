@@ -20,7 +20,7 @@
           v-else
           class="v-card--action_bye"
           @click="handleClick"
-          :in-cart="isBags"
+          :in-cart="cIsBags"
           :is-loading="isLoading"
         >
           {{ cBtnText }}
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { formatCurrency } from "@/assets/utils/formatCurrency";
 import { userStoreCardsList } from "@/stores/userCardsList";
 import VButton from "@/components/ui-components/vButton/vButton.vue";
@@ -125,22 +125,14 @@ const classesCard = computed(() => {
 });
 
 const emit = defineEmits(["click:clickBuy"]);
-const handleClick = () => {
-  emit("click:clickBuy", cardData);
-  setItem();
-};
 
 const userStoreList = userStoreCardsList();
 
 const isBags = ref(false);
 
-function checkIsBags() {
-  isBags.value = userStoreList.list.some(el => el.id === cardData.value.id);
-}
-
 watch(
-  () => userStoreList.list.length,
-  (newValue) => {
+  () => userStoreList.list,
+  () => {
     checkIsBags();
   }
 );
@@ -156,4 +148,20 @@ async function setItem() {
   await setPost.getData();
   isLoading.value = false;
 }
+
+const handleClick = () => {
+  emit("click:clickBuy", cardData);
+  setItem();
+};
+function checkIsBags() {
+  isBags.value = userStoreList.list.some(el => el.id == cardData.value.id);
+}
+
+const cIsBags = computed(()=>{
+  return userStoreList.list.some(el => el.id == cardData.value.id)
+})
+
+onMounted(()=>{
+  checkIsBags();
+})
 </script>
