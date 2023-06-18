@@ -53,32 +53,37 @@ const props = defineProps({
 });
 
 const cardData = ref(props.item);
+const isLoading = ref(false);
+const userStoreList = userStoreCardsList();
+
+async function setItem() {
+  isLoading.value = true;
+  const setPost = new SetItem();
+  await setPost.getData();
+  isLoading.value = false;
+}
 
 const isPrice = computed(() => {
   return !!cardData.value.price;
 });
-
 const isPriceCurrent = computed(() => {
   if (isPrice.value) {
     return !!cardData.value.price.current;
   }
   return false;
 });
-
 const isPriceOld = computed(() => {
   if (isPrice.value) {
     return !!cardData.value.price.old_value;
   }
   return false;
 });
-
 const isCurrency = computed(() => {
   if (isPrice.value) {
     return !!cardData.value.price.currency;
   }
   return false;
 });
-
 const currentPrice = computed(() => {
   if (isPriceCurrent.value && isCurrency.value) {
     return new formatCurrency(
@@ -88,7 +93,6 @@ const currentPrice = computed(() => {
   }
   return 0;
 });
-
 const oldPrice = computed(() => {
   if (isPriceOld.value && isCurrency.value) {
     let value = new formatCurrency(
@@ -99,7 +103,6 @@ const oldPrice = computed(() => {
   }
   return "";
 });
-
 const cardImage = computed(() => {
   if (cardData.value.img && cardData.value.img.length) {
     return cardData.value.img;
@@ -107,7 +110,6 @@ const cardImage = computed(() => {
     return "https://www.elegantthemes.com/blog/wp-content/uploads/2020/02/000-404.png";
   }
 });
-
 const imageDesc = computed(() => {
   if (cardData.value.img && cardData.value.img.length) {
     return cardData.value.name;
@@ -115,53 +117,30 @@ const imageDesc = computed(() => {
     return "Картинка, ксожалению, не найдена";
   }
 });
-
 const isSales = computed(() => {
   return cardData.value.is_sales ?? false;
 });
-
 const classesCard = computed(() => {
   return isSales.value ? "v-card-sales" : "";
+});
+const cIsBags = computed(()=>{
+  return userStoreList.list.some(el => el.id == cardData.value.id)
+})
+const cBtnText = computed(() => {
+  return cIsBags.value ? props.btnInCartText : props.btnText;
 });
 
 const emit = defineEmits(["click:clickBuy"]);
 
-const userStoreList = userStoreCardsList();
-
-const isBags = ref(false);
-
 watch(
   () => userStoreList.list,
   () => {
-    checkIsBags();
   }
 );
-
-const cBtnText = computed(() => {
-  return isBags.value ? props.btnInCartText : props.btnText;
-});
-const isLoading = ref(false);
-
-async function setItem() {
-  isLoading.value = true;
-  const setPost = new SetItem();
-  await setPost.getData();
-  isLoading.value = false;
-}
 
 const handleClick = () => {
   emit("click:clickBuy", cardData);
   setItem();
 };
-function checkIsBags() {
-  isBags.value = userStoreList.list.some(el => el.id == cardData.value.id);
-}
 
-const cIsBags = computed(()=>{
-  return userStoreList.list.some(el => el.id == cardData.value.id)
-})
-
-onMounted(()=>{
-  checkIsBags();
-})
 </script>

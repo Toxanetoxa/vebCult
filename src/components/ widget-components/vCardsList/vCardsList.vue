@@ -4,6 +4,8 @@
         <v-card
           v-if="isCard(card)"
           :item="card"
+          :btn-text="'Купить'"
+          :btn-in-cart-text="'В корзине'"
           @click:click-buy="setEmit"
         />
     </template>
