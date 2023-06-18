@@ -29,12 +29,10 @@ const list = computed(()=>{
 })
 
 const userStoreList = userStoreCardsList()
+userStoreList.getAllCards()
 
 const isCard = (cardItem:Object) => !!Object.keys(cardItem).length
 
-onMounted(()=> {
-  userStoreList.getAllCards()
-})
 function setEmit(event:Object) {
   userStoreList.getItem(event.value)
 }

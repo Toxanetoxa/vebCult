@@ -8,9 +8,12 @@ export const userStoreCardsList = defineStore({
   }),
   actions: {
     getItem(item:Post) {
+      console.log(1);
       if (!this.list.find( (el: Post) => el.id === item.id)) {
+        console.log(2);
         this.pushItem(item)
       } else {
+        console.log(3);
         this.removeItem(item)
       }
     },
@@ -19,16 +22,14 @@ export const userStoreCardsList = defineStore({
       this.refreshStorage()
     },
     removeItem(item:Post){
-      this.list = this.list.filter(el => el !== item)
+      this.list = this.list.filter(el => el.id !== item.id)
+
       this.refreshStorage()
     },
     getAllCards(){
       const itemsList = localStorage.getItem('userItems')
       if (itemsList) {
         this.list = [...(JSON.parse(itemsList))]
-        this.refreshStorage()
-      } else {
-        this.list = []
         this.refreshStorage()
       }
     },
