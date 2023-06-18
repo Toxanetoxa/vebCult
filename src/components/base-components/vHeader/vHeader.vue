@@ -41,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import vSearch from "@/components/ui-components/vSearch/vSearch.vue";
 import { RouterLink } from 'vue-router';
 import { ref, watch } from "vue";
 import { userStoreCardsList } from "@/stores/userCardsList";

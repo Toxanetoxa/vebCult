@@ -1,5 +1,5 @@
 import posts from "./mock/data.json";
-import { ApiError, ApiResponse, Data, HttpResponse } from "./interfacies";
+import type { ApiError, ApiResponse, Data, HttpResponse } from "./interfacies";
 // @ts-ignore
 const MOCK_DATA: Boolean = import.meta.env.MOCK_DATA ?? false;
 // @ts-ignore

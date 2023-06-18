@@ -4,10 +4,7 @@
   </div></div>
 </template>
 
-<script>
-export default {
-  name: "vLoading"
-};
+<script lang="ts" setup>
 </script>
 
 <style scoped>
