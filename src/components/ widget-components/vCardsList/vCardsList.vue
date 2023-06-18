@@ -2,7 +2,7 @@
   <div class="v-cards-list">
     <template v-for="card in list" :key="card.id">
         <v-card
-          v-if="Object.keys(card).length"
+          v-if="isCard(card)"
           :item="card"
           @click:click-buy="setEmit"
         />
@@ -11,10 +11,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import VCard from "@/components/ widget-components/vCard/vCard.vue";
 import { userStoreCardsList } from "@/stores/userCardsList";
-import { Data } from '@/api/getCardsList/interfacies'
 
 const props = defineProps({
   cardsList: {
@@ -29,10 +28,12 @@ const list = computed(()=>{
 
 const userStoreList = userStoreCardsList()
 
+const isCard = (cardItem:Object) => !!Object.keys(cardItem).length
+
 onMounted(()=> {
   userStoreList.getAllCards()
 })
-function setEmit(event:Data) {
+function setEmit(event:Object) {
   userStoreList.getItem(event.value)
 }
 </script>
