@@ -1,5 +1,5 @@
 <template>
-  <h1 class="v-title">{{ title }}</h1>
+  <h1 class="v-title  v-home-title">{{ title }}</h1>
   <v-cards-list
     :cards-list="cCardsList"
   />
