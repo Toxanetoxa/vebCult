@@ -40,7 +40,7 @@ footer {
     font-size: 14px;
     line-height: 21px;
 
-    &_geo {
+    &_geo, &_phone {
       display: flex;
       flex-direction: row;
       align-items: center;

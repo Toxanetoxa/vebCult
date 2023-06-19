@@ -35,6 +35,20 @@
 
     &--search {
       margin-left: auto;
+      display: flex;
+      max-width: 416px;
+      width: 100%;
+
+      .v-search {
+        &__wrap {
+          input {
+            max-width: 294px;
+          }
+          .v-button {
+            max-width: 122px;
+          }
+        }
+      }
     }
 
     &--cart {

@@ -26,9 +26,12 @@
       </nav>
       <div class="v-footer--contact-us">
         <a
-          href="tel:+7 (495) 999-99-99"
+          href="tel:+7(495)999-99-99"
           class="v-footer--contact-us_phone"
-        >+7 (495) 999-99-99</a>
+        >
+          <i class="v-icon v-icon-tel" />
+          <span>+7 (495) 999-99-99</span>
+        </a>
         <span class="v-footer--contact-us_geo">
         <i class="v-icon v-icon-geo" />
         <a

@@ -7,9 +7,6 @@
       <div class="v-card--title">
         <h4 class="v-card--title_title">{{ cardData.title }}</h4>
       </div>
-      <div class="v-card--description">
-        <span class="v-card--description_text">{{ cardData.description }}</span>
-      </div>
       <div v-if="isPrice" class="v-card--price">
         <span class="v-card--price_new">{{ currentPrice }}</span>
         <span class="v-card--price_old">{{ oldPrice }}</span>
